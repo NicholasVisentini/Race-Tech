@@ -1,6 +1,7 @@
 /* pagina mural */
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
 
 body {
   margin: 0;
@@ -17,6 +18,12 @@ body {
   width: 100%;
   color: rgb(216, 216, 216);
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dash-right .avisos .container h1 {
+  color: #e10600;
+  font-family: 'Racing Sans One';
+  font-weight: 400;
 }
 
 .dash-right .avisos .container {
@@ -44,8 +51,9 @@ body {
 
 .dash-right .avisos .div-form textarea {
   width: 95%;
-  border: 3px solid #e6005a;
-  background-color: white;
+  border: 3px solid #e10600;
+  background-color: #0d0d0d;
+  color: #fff;
   border-radius: 5px;
 }
 
@@ -58,7 +66,7 @@ body {
   font-size: 18px;
   padding: 10px 15px;
   color: white;
-  background-color: #e6005a;
+  background-color: #e10600;
   width: 120px;
 }
 
@@ -71,7 +79,7 @@ body {
   font-size: 14px;
   padding: 5px 8px;
   color: white;
-  background-color: #e6005a;
+  background-color: #e10600;
   width: 80px;
 }
 
@@ -82,7 +90,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  border-bottom: 3px solid #e6005a;
+  border-bottom: 3px solid #e10600;
   padding: 20px;
 }
 
@@ -285,7 +293,7 @@ body {
   font-weight: 600;
   font-size: 18px;
   padding: 10px 15px;
-  color: #e6005a;
+  color: #e10600;
   background-color: white;
   margin: 5px;
   border-radius: 3px;
@@ -294,11 +302,11 @@ body {
 
 .btn-pink {
   color: white;
-  background-color: #e6005a;
+  background-color: #e10600;
 }
 
 .btn-white {
-  color: #e6005a;
+  color: #e10600;
   background-color: white;
 
 }
@@ -347,7 +355,7 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
+  border-right: 3px solid #e10600;
   background-color: #212124;
 }
 
@@ -364,7 +372,8 @@ canvas {
 }
 
 .header-left h1 {
-  color: #32b9cd;
+  color: #e10600;
+  font-family: 'Racing Sans One';
 }
 
 .hello {
@@ -374,7 +383,7 @@ canvas {
 }
 
 .hello h3 {
-  color: #e3b062;
+  color: #cfcfcf;
   font-weight: 300;
   font-size: 1.2rem;
 }
@@ -386,7 +395,7 @@ canvas {
 .btn-nav {
   width: 40%;
   color: white;
-  background-color: #e6005a;
+  background-color: #e10600;
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
@@ -395,14 +404,14 @@ canvas {
 .btn-nav-white {
   width: 40%;
   background-color: white;
-  border: 3px solid #e6005a;
+  border: 3px solid #e10600;
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
 }
 
 .btn-nav-white h3 {
-  color: #e6005a;
+  color: #e10600;
   padding: 0;
   margin: 0;
 }
@@ -417,7 +426,7 @@ canvas {
   margin: 0;
   padding: 0;
   width: 20%;
-  background-color: #32b9cd;
+  background-color: #333333;
   color: white;
   border-radius: 10px;
   text-align: center;
