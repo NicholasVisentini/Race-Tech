@@ -335,10 +335,21 @@ input {
   font-size: 34px;
 }
 
+.simulador h4 {
+  font-size: 34px;
+  margin: 8px 0;
+}
+
 .simulador .container {
   flex-direction: column;
-  overflow: scroll; 
+  overflow: auto; 
   height: var(--tamanho-simulador);
+  scrollbar-color: #9F9F9F #2C2C2C;
+}
+
+.box img.imgs_carros {
+  width: 600px;
+  padding-top: 130px;
 }
 
 /* ALERTA */
