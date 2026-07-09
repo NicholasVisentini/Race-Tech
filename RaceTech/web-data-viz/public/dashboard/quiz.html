@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/RaceTechIcon1.svg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaceTech | Quiz</title>
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="stylesheet" href="./../css/style.css" />
+
+    <script src="../js/sessao.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body onload="validarSessao(), onloadEsconder()">
+    <div class="janela">
+
+        <div class="header-left dash-header">
+
+            <h1>RaceTech</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="cards.html">
+                    <h3>Aquários e Terrários</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./mural.html">
+                    <h3>Mural de Avisos</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav">
+                <h3>quiz</h3>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+        <div class="dash">
+
+            <h1 class="tituloGraficos">Quiz RaceTech</h1>
+
+            <div id="pontuacaoEJogo">
+                    <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+                    <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+                        <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                            <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
+                            <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+                        </div>
+                        <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
+                            <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
+                                <span id="spanPontuacaoFinal">***</span>
+                            </span>
+                            <span id="msgFinal" class="width-fit-content">***</span>
+                        </div>
+                    </div>
+
+                    <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+                        <div id="infoQuestao" class="padding-8">
+                            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                                questões.</span>
+                        </div>
+
+                        <div id="perguntaDaQuestaoAtual" class="padding-8">
+                            <span id="spanQuestaoExibida" class="text-bold"></span>
+                        </div>
+
+                        <div id="infoAlternativas" class="padding-8">
+                            <span><em>Escolha uma opção dentre as abaixo:</em></span>
+                        </div>
+
+                        <div id="opcoes" class="flex-colunar padding-8">
+                            <span>
+                                <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                                <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                            </span>
+                            <span>
+                                <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                                <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                            </span>
+                            <span>
+                                <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                                <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                            </span>
+                            <span>
+                                <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                                <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                            </span>
+                        </div>
+
+                        <div id="botoes" class="flex-colunar padding-8">
+                            <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                            <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                            <button onclick="finalizarJogo()" id="btnConcluir" disabled>Finalizar Quiz</button>
+                            <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    const listaDeQuestoes = [
+
+        {
+            pergunta: "Em que ano o Gol GTI \"quadrado\" foi lançado pela Volkswagen?",
+            alternativaA: "1979",
+            alternativaB: "1985",
+            alternativaC: "1989",
+            alternativaD: "1994",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "Qual montadora fabricava o Opala SS 4.1?",
+            alternativaA: "Ford",
+            alternativaB: "Chevrolet",
+            alternativaC: "Volkswagen",
+            alternativaD: "Fiat",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Quantos cilindros tinha o motor 4.1 do Opala SS?",
+            alternativaA: "Quatro cilindros",
+            alternativaB: "Seis cilindros em linha",
+            alternativaC: "Oito cilindros em V",
+            alternativaD: "Três cilindros",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Qual modelo aproveitava a mecânica do Fusca, com motor 1.6 refrigerado a ar?",
+            alternativaA: "Chevette SLE",
+            alternativaB: "Escort XR3",
+            alternativaC: "Brasília",
+            alternativaD: "Omega CD",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O Escort XR3 era um hatch esportivo de qual montadora?",
+            alternativaA: "Ford",
+            alternativaB: "Chevrolet",
+            alternativaC: "Volkswagen",
+            alternativaD: "Fiat",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Qual era o motor mais potente oferecido no Maverick GT?",
+            alternativaA: "1.0 de três cilindros",
+            alternativaB: "1.6 refrigerado a ar",
+            alternativaC: "V8",
+            alternativaD: "Motor elétrico",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O Fusca 1600S se diferenciava dos Fuscas comuns principalmente por quê?",
+            alternativaA: "Por ser elétrico",
+            alternativaB: "Por ter carburação dupla",
+            alternativaC: "Por ter tração nas quatro rodas",
+            alternativaD: "Por ser um sedã",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "No Chevette, a sigla SLE indicava o quê?",
+            alternativaA: "A versão mais básica",
+            alternativaB: "Uma versão de corrida",
+            alternativaC: "O acabamento mais completo",
+            alternativaD: "Um furgão de carga",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O Omega CD 4.1i era conhecido como qual tipo de carro?",
+            alternativaA: "Um compacto popular",
+            alternativaB: "Um sedã de luxo e prestígio",
+            alternativaC: "Uma picape de trabalho",
+            alternativaD: "Um esportivo de dois lugares",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "A que montadora pertencia a Brasília?",
+            alternativaA: "Volkswagen",
+            alternativaB: "Ford",
+            alternativaC: "Chevrolet",
+            alternativaD: "Fiat",
+            alternativaCorreta: "alternativaA"
+        }
+
+    ]
+
+    // variáveis globais    
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+
+    function onloadEsconder() {
+        document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "none"
+    }
+
+    function iniciarQuiz() {
+        document.getElementById('pontuacao').style.display = "flex"
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+
+        preencherHTMLcomQuestaoAtual(0)
+
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        btnConcluir.disabled = true
+        btnTentarNovamente.disabled = true
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+    }
+
+    function submeter() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        } else {
+            btnSubmeter.disabled = true
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+
+            if (numeroDaQuestaoAtual == quantidadeDeQuestoes) {
+                btnConcluir.disabled = false
+            } else {
+                btnProx.disabled = false
+            }
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
+
+    function avancar() {
+        btnProx.disabled = true
+        btnSubmeter.disabled = false
+
+        desmarcarRadioButtons()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
+            alert("Atenção... a próxima é a ultima questão!")
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+        limparCoresBackgroundOpcoes()
+    }
+
+    function tentarNovamente() {
+        // atualiza a página
+        window.location.reload()
+    }
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let alternativaCorreta = null // variável para armazenar a alternativa correta
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                pontuacaoFinal++
+                certas++
+                document.getElementById("spanCertas").innerHTML = certas
+                numeroDaQuestaoAtual++
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
+
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                tentativaIncorreta++
+                erradas++
+                document.getElementById("spanErradas").innerHTML = erradas
+                numeroDaQuestaoAtual++
+            }
+        })
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+
+    function finalizarJogo() {
+        let textoParaMensagemFinal = null
+        let classComCoresParaMensagemFinal = null
+        const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+
+        if (porcentagemFinalDeAcertos <= 0.3) {
+            textoParaMensagemFinal = "Parece que você não estudou..."
+            classComCoresParaMensagemFinal = "text-danger-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+            classComCoresParaMensagemFinal = "text-warning-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos >= 0.9) {
+            textoParaMensagemFinal = "Uau, parabéns!"
+            classComCoresParaMensagemFinal = "text-success-with-bg"
+        }
+
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+
+
+        document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+
+        document.getElementById('jogo').classList.add("text-new-gray") 
+
+        btnProx.disabled = true
+        btnSubmeter.disabled = true
+        btnConcluir.disabled = true
+        btnTentarNovamente.disabled = false
+
+    }
+</script>
