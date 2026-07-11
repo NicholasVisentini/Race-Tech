@@ -1,0 +1,85 @@
+:root {
+    --primary-brand-color: #e10600;
+    --secondary-brand-color: #e10600;
+    --success: #198754;
+    --success-dark: #0b3b23;
+    --success-light: #7dd1a6;
+    --warning: #ffc107;
+    --warning-dark: #5a4300;
+    --warning-light: #ffe08a;
+    --danger: #dc3545;
+    --danger-dark: #5c0710;
+    --danger-light: #f3a3ab;
+    --new-gray: #cccccc;
+}
+
+#pontuacaoEJogo {
+    color: #ffffff;
+    font-family: "Barlow";
+    padding: 20px;
+}
+
+#pontuacaoEJogo button {
+    cursor: pointer;
+    font-family: "Barlow";
+    font-weight: 600;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #e10600;
+    padding: 10px 16px;
+    margin: 5px 0;
+}
+
+#pontuacaoEJogo button:disabled {
+    background-color: #5a1a1a;
+    color: #cccccc;
+    cursor: default;
+}
+
+.flex-colunar {
+    display: flex;
+    flex-direction: column;
+}
+
+.width-fit-content {
+    width: fit-content;
+}
+
+.border-primary {
+    border: 3px solid var(--primary-brand-color);
+    border-radius: 8px;
+}
+
+.border-secondary {
+    border: 3px solid var(--secondary-brand-color);
+    border-radius: 8px;
+}
+
+.padding-8 {
+    padding: 8px;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-success-with-bg {
+    color: var(--success-dark);
+    background-color: var(--success-light);
+}
+
+.text-warning-with-bg {
+    color: var(--warning-dark);
+    background-color: var(--warning-light);
+}
+
+.text-danger-with-bg {
+    color: var(--danger-dark);
+    background-color: var(--danger-light);
+}
+
+.text-new-gray {
+    color: var(--new-gray);
+}
