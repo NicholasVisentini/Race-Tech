@@ -1,58 +1,45 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
+CREATE DATABASE IF NOT EXISTS racetech;
+ 
+USE racetech;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	senha VARCHAR(100) NOT NULL
 );
-
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
+ 
+CREATE TABLE quiz_resultado (
+	id_resultado INT PRIMARY KEY AUTO_INCREMENT,
 	fk_usuario INT,
+	pontuacao INT NOT NULL,
+	total_perguntas INT DEFAULT 10,
 	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+ 
+CREATE TABLE quiz_resposta (
+	id_resposta INT PRIMARY KEY AUTO_INCREMENT,
+	fk_quiz_resultado INT NOT NULL,
+	numero_pergunta INT NOT NULL,
+	acertou TINYINT NOT NULL,
+	FOREIGN KEY (fk_quiz_resultado) REFERENCES quiz_resultado(id)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+-- SELECTS --
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	temperatura DECIMAL,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
+SELECT ROUND(SUM(pontuacao) / SUM(total_perguntas) * 100) AS acerto_total FROM quiz_resultado;
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+SELECT COUNT(*) AS total_quizzes FROM quiz_resultado;
+
+SELECT MAX(pontuacao) AS melhor_pontuacao FROM quiz_resultado;
+
+SELECT numero_pergunta, ROUND(AVG(acertou) * 100) AS taxa_acerto
+FROM quiz_resposta
+GROUP BY numero_pergunta
+ORDER BY numero_pergunta;
+
+SELECT numero_pergunta, ROUND((1 - AVG(acertou)) * 100) AS taxa_erro
+FROM quiz_resposta
+GROUP BY numero_pergunta
+ORDER BY taxa_erro DESC
+LIMIT 3;

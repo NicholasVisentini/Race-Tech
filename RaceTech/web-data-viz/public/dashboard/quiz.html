@@ -27,11 +27,11 @@
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="btn-nav-white">
+            <!-- <div class="btn-nav-white">
                 <a href="cards.html">
                     <h3>Aquários e Terrários</h3>
                 </a>
-            </div>
+            </div> -->
 
             <div class="btn-nav-white">
                 <a href="./dashboard.html">
@@ -228,6 +228,7 @@
     let erradas = 0
     let quantidadeDeQuestoes = listaDeQuestoes.length
     // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+    let respostas = []
 
     function onloadEsconder() {
         document.getElementById('pontuacao').style.display = "none"
@@ -326,6 +327,7 @@
     function checarResposta() {
         const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
         const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+        const numeroPerguntaAtual = numeroDaQuestaoAtual + 1
 
         const options = document.getElementsByName("option"); // recupera alternativas no html
 
@@ -345,6 +347,7 @@
                 pontuacaoFinal++
                 certas++
                 document.getElementById("spanCertas").innerHTML = certas
+                respostas.push({ numero_pergunta: numeroPerguntaAtual, acertou: 1 })
                 numeroDaQuestaoAtual++
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
                 const wrongLabelId = option.labels[0].id
@@ -354,6 +357,7 @@
                 tentativaIncorreta++
                 erradas++
                 document.getElementById("spanErradas").innerHTML = erradas
+                respostas.push({ numero_pergunta: numeroPerguntaAtual, acertou: 0 })
                 numeroDaQuestaoAtual++
             }
         })
@@ -405,6 +409,16 @@
         btnSubmeter.disabled = true
         btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
+
+        fetch("/quiz/salvar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                pontuacaoServer: pontuacaoFinal,
+                fkUsuarioServer: sessionStorage.ID_USUARIO,
+                respostasServer: respostas
+            })
+        })
 
     }
 </script>

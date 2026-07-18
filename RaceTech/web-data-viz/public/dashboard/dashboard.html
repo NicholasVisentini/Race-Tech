@@ -29,8 +29,7 @@
 <!-- <body onload=" atualizarFeed()"> -->
 
 <body>
-
-    <div class="janela">
+<div class="janela">
         <div class="header-left">
             <h1>RaceTech</h1>
 
@@ -38,11 +37,11 @@
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="btn-nav-white">
+            <!-- <div class="btn-nav-white">
                 <a href="./cards.html">
                     <h3>Aquários e Terrários</h3>
                 </a>
-            </div>
+            </div> -->
 
             <div class="btn-nav">
 
@@ -72,10 +71,51 @@
             <div id="alerta">
             </div>
 
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+            <div class="cards">
+                <div class="card-aquario">
+                    <div class="title-aquario">
+                        <h1>Acerto geral</h1>
+                    </div>
+                    <div class="desc-aquario">
+                        <div class="temperatura">
+                            <p><span id="acertototal"></span>%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-aquario">
+                    <div class="title-aquario">
+                        <h1>Quiz jogados</h1>
+                    </div>
+                    <div class="desc-aquario">
+                        <div class="temperatura">
+                            <p id="quizzestotal"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-aquario">
+                    <div class="title-aquario">
+                        <h1>Melhor pontuação</h1>
+                    </div>
+                    <div class="desc-aquario">
+                        <div class="temperatura">
+                            <p id="melhorpontuacao"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div id="graficos">
+                <h3 class="tituloGraficos">Taxa de acerto por pergunta</h3>
+                <div class="graph">
+                    <canvas id="linha"></canvas>
+                </div>
+
+                <h3 class="tituloGraficos">Top 3 perguntas mais erradas</h3>
+                <div class="graph">
+                    <canvas id="barra"></canvas>
+                </div>
             </div>
         </div>
     </div>
