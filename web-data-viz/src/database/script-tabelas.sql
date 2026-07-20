@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS racetech;
 USE racetech;
 
 CREATE TABLE usuario (
-	id_usuario INT PRIMARY KEY AUTO_INCREMENT, -- arrumar a rota dps da troca de nome
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL UNIQUE,
 	senha VARCHAR(100) NOT NULL
@@ -18,7 +18,7 @@ CREATE TABLE quiz_resultado (
 );
  
 CREATE TABLE quiz_resposta (
-	id_resposta INT PRIMARY KEY AUTO_INCREMENT, -- id foi alterado para deixar mais facil de mexer nas rotas (antes: id | agora: id_resposta)
+	id_resposta INT PRIMARY KEY AUTO_INCREMENT,
 	fk_quiz_resultado INT NOT NULL,
 	numero_pergunta INT NOT NULL,
 	acertou TINYINT NOT NULL,
